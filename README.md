@@ -1,4 +1,8 @@
-# FitLift
+<h1><img src="AppIcon.png" width="40" align="center" /> FitLift</h1>
+
+![Platform](https://img.shields.io/badge/Platform-iOS%2026%2B-blue?logo=apple)
+![Swift](https://img.shields.io/badge/Swift-6.0-orange?logo=swift)
+![License](https://img.shields.io/badge/License-MIT-brightgreen)
 
 iOS app for tracking your weightlifting workouts with Push/Pull/Legs/Shoulders split.
 
