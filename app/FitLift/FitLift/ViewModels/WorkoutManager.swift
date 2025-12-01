@@ -15,18 +15,25 @@ class WorkoutManager {
     var isWorkoutActive: Bool = false
     var activeWorkoutType: WorkoutType?
     var exercises: [ActiveExercise] = []
-    var elapsedTime: TimeInterval = 0
     var startTime: Date?
+
+    // This triggers UI updates every second
+    var timerTick: Int = 0
 
     private var timer: Timer?
 
     private init() {}
 
+    // Calculate elapsed time from start time - works even after screen lock
+    var elapsedTime: TimeInterval {
+        guard let startTime = startTime else { return 0 }
+        return Date().timeIntervalSince(startTime)
+    }
+
     func startWorkout(type: WorkoutType) {
         activeWorkoutType = type
         isWorkoutActive = true
         startTime = Date()
-        elapsedTime = 0
 
         // Setup default exercises
         let defaultNames = type.defaultExercises.prefix(3)
@@ -48,8 +55,9 @@ class WorkoutManager {
 
     private func startTimer() {
         timer?.invalidate()
+        // Timer just triggers UI refresh, actual time is calculated from startTime
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            self?.elapsedTime += 1
+            self?.timerTick += 1
         }
     }
 
@@ -124,8 +132,8 @@ class WorkoutManager {
         isWorkoutActive = false
         activeWorkoutType = nil
         exercises = []
-        elapsedTime = 0
         startTime = nil
+        timerTick = 0
     }
 
     func cancelWorkout() {
@@ -134,8 +142,8 @@ class WorkoutManager {
         isWorkoutActive = false
         activeWorkoutType = nil
         exercises = []
-        elapsedTime = 0
         startTime = nil
+        timerTick = 0
     }
 
     var formattedTime: String {

@@ -90,6 +90,22 @@ enum ExerciseDatabase {
         "Cable Curl"
     ]
 
+    static let core: [String] = [
+        "Plank",
+        "Crunches",
+        "Leg Raises",
+        "Hanging Leg Raises",
+        "Russian Twists",
+        "Cable Woodchops",
+        "Dead Bug",
+        "Ab Rollout",
+        "Mountain Climbers",
+        "Bicycle Crunches",
+        "Hollow Body Hold",
+        "Side Plank",
+        "Head to Toe Touch"
+    ]
+
     static func exercises(for workoutType: WorkoutType) -> [String: [String]] {
         switch workoutType {
         case .push:
@@ -100,6 +116,8 @@ enum ExerciseDatabase {
             return ["Shoulders": shoulders]
         case .legs:
             return ["Legs": legs]
+        case .core:
+            return ["Core": core]
         }
     }
 }

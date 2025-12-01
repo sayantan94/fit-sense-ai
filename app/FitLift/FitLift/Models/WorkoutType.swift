@@ -5,6 +5,7 @@ enum WorkoutType: String, Codable, CaseIterable, Identifiable {
     case pull = "Pull"
     case shoulders = "Shoulders"
     case legs = "Legs"
+    case core = "Core"
 
     var id: String { rawValue }
 
@@ -14,6 +15,7 @@ enum WorkoutType: String, Codable, CaseIterable, Identifiable {
         case .pull: return "Pull Day"
         case .shoulders: return "Shoulders"
         case .legs: return "Legs"
+        case .core: return "Core"
         }
     }
 
@@ -23,6 +25,7 @@ enum WorkoutType: String, Codable, CaseIterable, Identifiable {
         case .pull: return "Back · Biceps · Rear Delts"
         case .shoulders: return "Lateral · Front · Rear"
         case .legs: return "Quads · Hamstrings · Calves"
+        case .core: return "Abs · Obliques · Lower Back"
         }
     }
 
@@ -32,6 +35,7 @@ enum WorkoutType: String, Codable, CaseIterable, Identifiable {
         case .pull: return Theme.pull
         case .shoulders: return Theme.shoulders
         case .legs: return Theme.legs
+        case .core: return Theme.core
         }
     }
 
@@ -45,6 +49,8 @@ enum WorkoutType: String, Codable, CaseIterable, Identifiable {
             return ["Overhead Press", "Lateral Raises", "Front Raises", "Rear Delt Flyes", "Shrugs"]
         case .legs:
             return ["Squat", "Romanian Deadlift", "Leg Press", "Leg Curl", "Leg Extension", "Calf Raises"]
+        case .core:
+            return ["Plank", "Crunches", "Leg Raises", "Russian Twists", "Cable Woodchops", "Dead Bug"]
         }
     }
 }

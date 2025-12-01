@@ -145,7 +145,9 @@ struct ActiveWorkoutView: View {
     }
 
     private var timerView: some View {
-        Text(workoutManager.formattedTime)
+        // Reference timerTick to trigger UI refresh every second
+        let _ = workoutManager.timerTick
+        return Text(workoutManager.formattedTime)
             .font(.system(size: 28, weight: .semibold))
             .foregroundColor(Theme.textPrimary)
             .monospacedDigit()

@@ -9,6 +9,7 @@ struct FitLiftApp: App {
             Exercise.self,
             WorkoutSet.self,
             WorkoutSession.self,
+            CustomExercise.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

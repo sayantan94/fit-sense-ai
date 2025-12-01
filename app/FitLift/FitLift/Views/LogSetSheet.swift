@@ -112,12 +112,15 @@ struct WeightInputBox: View {
 
     var body: some View {
         VStack {
-            HStack(spacing: 4) {
+            HStack(spacing: 0) {
                 Button(action: { if value >= 5 { value -= 5 } }) {
                     Image(systemName: "minus")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(Theme.accent)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
 
                 TextField("", value: $value, format: .number)
                     .font(.system(size: 36, weight: .semibold))
@@ -125,16 +128,17 @@ struct WeightInputBox: View {
                     .multilineTextAlignment(.center)
                     .keyboardType(.decimalPad)
                     .focused($isFocused)
-                    .frame(width: 60)
+                    .frame(width: 52)
 
                 Button(action: { value += 5 }) {
                     Image(systemName: "plus")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(Theme.accent)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 16)
             .frame(width: 140, height: 80)
             .background(Color.white.opacity(0.08))
             .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -148,12 +152,15 @@ struct RepsInputBox: View {
 
     var body: some View {
         VStack {
-            HStack(spacing: 4) {
+            HStack(spacing: 0) {
                 Button(action: { if value > 0 { value -= 1 } }) {
                     Image(systemName: "minus")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(Theme.accent)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
 
                 TextField("", value: $value, format: .number)
                     .font(.system(size: 36, weight: .semibold))
@@ -161,16 +168,17 @@ struct RepsInputBox: View {
                     .multilineTextAlignment(.center)
                     .keyboardType(.numberPad)
                     .focused($isFocused)
-                    .frame(width: 50)
+                    .frame(width: 52)
 
                 Button(action: { value += 1 }) {
                     Image(systemName: "plus")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(Theme.accent)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 16)
             .frame(width: 140, height: 80)
             .background(Color.white.opacity(0.08))
             .clipShape(RoundedRectangle(cornerRadius: 16))

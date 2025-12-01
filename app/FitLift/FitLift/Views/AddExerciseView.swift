@@ -1,7 +1,10 @@
 import SwiftUI
+import SwiftData
 
 struct AddExerciseView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
+    @Query private var allCustomExercises: [CustomExercise]
 
     let workoutType: WorkoutType
     let onAdd: (String) -> Void
@@ -11,8 +14,19 @@ struct AddExerciseView: View {
     @State private var showingCustomExercise = false
     @State private var customExerciseName = ""
 
+    private var customExercisesForType: [String] {
+        allCustomExercises
+            .filter { $0.workoutType == workoutType }
+            .map { $0.name }
+            .sorted()
+    }
+
     private var exercises: [String: [String]] {
-        ExerciseDatabase.exercises(for: workoutType)
+        var base = ExerciseDatabase.exercises(for: workoutType)
+        if !customExercisesForType.isEmpty {
+            base["Custom"] = customExercisesForType
+        }
+        return base
     }
 
     private var filteredExercises: [String: [String]] {
@@ -32,6 +46,18 @@ struct AddExerciseView: View {
         return filtered
     }
 
+    // Sort categories with "Custom" at the end
+    private var sortedCategories: [String] {
+        let keys = filteredExercises.keys.sorted()
+        if let customIndex = keys.firstIndex(of: "Custom") {
+            var sorted = keys
+            sorted.remove(at: customIndex)
+            sorted.append("Custom")
+            return sorted
+        }
+        return keys
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -43,7 +69,7 @@ struct AddExerciseView: View {
 
                     ScrollView {
                         VStack(alignment: .leading, spacing: 0) {
-                            ForEach(filteredExercises.keys.sorted(), id: \.self) { category in
+                            ForEach(sortedCategories, id: \.self) { category in
                                 categorySection(category: category)
                             }
 
@@ -59,8 +85,14 @@ struct AddExerciseView: View {
                 CustomExerciseSheet(
                     exerciseName: $customExerciseName,
                     onAdd: {
-                        if !customExerciseName.trimmingCharacters(in: .whitespaces).isEmpty {
-                            selectedExercises.insert(customExerciseName.trimmingCharacters(in: .whitespaces))
+                        let name = customExerciseName.trimmingCharacters(in: .whitespaces)
+                        if !name.isEmpty {
+                            // Save to database for future use
+                            let customExercise = CustomExercise(name: name, workoutType: workoutType)
+                            modelContext.insert(customExercise)
+
+                            // Also select it for current workout
+                            selectedExercises.insert(name)
                             customExerciseName = ""
                         }
                         showingCustomExercise = false

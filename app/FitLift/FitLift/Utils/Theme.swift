@@ -25,6 +25,7 @@ enum Theme {
     static let pull = Color(hex: "4ecdc4")
     static let shoulders = Color(hex: "ffe66d")
     static let legs = Color(hex: "a66cff")
+    static let core = Color(hex: "ff9f43")
 
     // Text colors
     static let textPrimary = Color.white

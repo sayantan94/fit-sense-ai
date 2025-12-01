@@ -49,7 +49,9 @@ struct HomeView: View {
     }
 
     private func activeWorkoutBanner(type: WorkoutType) -> some View {
-        Button(action: {
+        // Reference timerTick to trigger UI refresh
+        let _ = workoutManager.timerTick
+        return Button(action: {
             selectedWorkoutType = type
         }) {
             HStack {
@@ -86,22 +88,9 @@ struct HomeView: View {
 
     private var headerView: some View {
         VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                Text("FitLift")
-                    .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(Theme.textPrimary)
-
-                Spacer()
-
-                Button(action: {}) {
-                    Image(systemName: "timer")
-                        .font(.system(size: 18))
-                        .foregroundColor(Theme.textPrimary)
-                        .frame(width: 40, height: 40)
-                        .background(Color.white.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                }
-            }
+            Text("FitLift")
+                .font(.system(size: 32, weight: .bold))
+                .foregroundColor(Theme.textPrimary)
 
             Text(formattedDate)
                 .font(.system(size: 15))
